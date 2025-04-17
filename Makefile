@@ -1,13 +1,15 @@
 NAME	= so_long
 
 CC		= cc
-INCLUDE = -I./include
+INCLUDE = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 CFLAGS	= -Wall -Wextra -Werror $(INCLUDE)
-SRC_DIR	= .
+
+SRC_DIR	= src
 OBJ_DIR	= obj
 
-SRC		= main.c
-OBJ		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+SRC_FILES = main.c check_maps.c
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 LIBFT_DIR = libft
 LIBFT	= -L$(LIBFT_DIR) -lft
@@ -26,7 +28,7 @@ $(NAME): mlx lib $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
