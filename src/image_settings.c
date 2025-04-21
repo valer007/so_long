@@ -1,127 +1,106 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image_settings.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
+/*   Updated: 2025/04/21 13:34:50 by vmakarya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-t_image_path	image_path()
+int	close_window(void)
 {
-	t_image_path path;
-
-	path.mlx = mlx_init();
-    path.win = mlx_new_window(path.mlx, 1500, 400, "so_long");
-	path.img_width = 0;
-	path.img_height = 0;
-    path.shenq_img = mlx_xpm_file_to_image(path.mlx, "assets/shenq.xpm", &path.img_width, &path.img_height);
-	path.lights = mlx_xpm_file_to_image(path.mlx, "assets/traffic_lights.xpm", &path.img_width, &path.img_height);
-	path.img = mlx_xpm_file_to_image(path.mlx, "assets/asphalt.xpm", &path.img_width, &path.img_height);
-	path.player = mlx_xpm_file_to_image(path.mlx, "assets/car_right.xpm", &path.img_width, &path.img_height);
-	path.girl = mlx_xpm_file_to_image(path.mlx, "assets/girl.xpm", &path.img_width, &path.img_height);
-	path.home = mlx_xpm_file_to_image(path.mlx, "assets/home.xpm", &path.img_width, &path.img_height);
-
-return (path);
+	exit(0);
 }
 
-void	checking_map(char **map, int map_lines)
+int	start_game(char **argv, char **map)
 {
-	int				i;
-	int				j;
-	t_image_path	path;
+	void	*mlx;
+	void	*win;
+	t_img	img;
+	int		map_lines;
 
-	path = image_path();
-	i = 0;
+	map_lines = count_lines(argv[1]) - 1;
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 1500, 400, "so_long");
+	load_images(&img, mlx);
+	draw_top_bottom(map, map_lines, img, win);
+	draw_left_right(map, img, win);
+	draw_inner_walls(map, map_lines, img, win);
+	draw_elements(map, img, win);
+	mlx_hook(win, 17, 0, close_window, NULL);
+	mlx_loop(mlx);
+	free_map(map);
+	return (0);
+}
+
+void	load_images(t_img *img, void *mlx)
+{
+	img->img_width = 0;
+	img->img_height = 0;
+	img->shenq_img = mlx_xpm_file_to_image(mlx,
+			"assets/shenq.xpm", &img->img_width, &img->img_height);
+	img->lights = mlx_xpm_file_to_image(mlx,
+			"assets/traffic_lights.xpm", &img->img_width, &img->img_height);
+	img->img = mlx_xpm_file_to_image(mlx,
+			"assets/asphalt.xpm", &img->img_width, &img->img_height);
+	img->player = mlx_xpm_file_to_image(mlx,
+			"assets/car_right.xpm", &img->img_width, &img->img_height);
+	img->girl = mlx_xpm_file_to_image(mlx,
+			"assets/girl.xpm", &img->img_width, &img->img_height);
+	img->home = mlx_xpm_file_to_image(mlx,
+			"assets/home.xpm", &img->img_width, &img->img_height);
+}
+
+void	draw_top_bottom(char **map, int map_lines, t_img img, void *win)
+{
+	int	j;
+
 	j = 0;
-	while (map[i][j])
+	while (map[0][j])
 	{
 		if (map[0][j] == '1' && map[map_lines][j] == '1')
 		{
-			mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, 0 * path.img_height);
-			mlx_put_image_to_window(path.mlx, path.win, path.shenq_img, j * path.img_width, 0 * path.img_height);
-			
-			mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, map_lines * path.img_height);
-			mlx_put_image_to_window(path.mlx, path.win, path.shenq_img, j * path.img_width, map_lines * path.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.img,
+				j * img.img_width, 0 * img.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.shenq_img,
+				j * img.img_width, 0 * img.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.img,
+				j * img.img_width, map_lines * img.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.shenq_img,
+				j * img.img_width, map_lines * img.img_height);
 		}
 		j++;
 	}
 }
 
-void checking_map1(char **map)
+void	draw_left_right(char **map, t_img img, void *win)
 {
-	int i;
-	int j;
-	int size;
-	t_image_path path;
+	int	i;
+	int	size;
 
-	path = image_path();
 	size = ft_strlen(map[0]) - 2;
 	i = 0;
-	while (map[i++])
+	while (map[i])
 	{
-		j = 0;
-		while (map[i][j++])
+		if (map[i][0] == '1')
 		{
-			if (map[i][0] == '1')
-			{
-				mlx_put_image_to_window(path.mlx, path.win, path.img, 0 * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.shenq_img, 0 * path.img_width, i * path.img_height);
-			}
-			if (map[i][size] == '1')
-			{
-				mlx_put_image_to_window(path.mlx, path.win, path.img, size * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.shenq_img, size * path.img_width, i * path.img_height);
-			}
+			mlx_put_image_to_window(img.mlx, win, img.img,
+				0 * img.img_width, i * img.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.shenq_img,
+				0 * img.img_width, i * img.img_height);
 		}
-	}
-}
-
-void  checking_map2(char **map, int map_lines)
-{
-	int				i;
-	int				j;
-	t_image_path	path;
-	int				size;
-
-	size = ft_strlen(map[0]) - 2;
-	path = image_path();
-	i = 1;
-	while (i < map_lines)
-	{
-		j = 1;
-		while (j < size)
+		if (map[i][size] == '1')
 		{
-			if (map[i][j] == '1')
-			{
-				mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.lights, j * path.img_width, i * path.img_height);
-			}
-			j++;
+			mlx_put_image_to_window(img.mlx, win, img.img,
+				size * img.img_width, i * img.img_height);
+			mlx_put_image_to_window(img.mlx, win, img.shenq_img,
+				size * img.img_width, i * img.img_height);
 		}
 		i++;
-	}
-}
-
-void checking_map3(char **map)
-{
-	int				i;
-	int				j;
-	t_image_path	path;
-
-	i = 0;
-	while (map[i++])
-	{
-		j = 0;
-		while (map[i][j++])
-		{
-			if (map[i][j] == '0')
-				mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, i * path.img_height);
-			if (map[i][j] == 'P') {
-				mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.player, j * path.img_width, i * path.img_height);
-			}
-			if (map[i][j] == 'C') {
-				mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.girl, j * path.img_width, i * path.img_height);
-			}
-			if (map[i][j] == 'E') {
-				mlx_put_image_to_window(path.mlx, path.win, path.img, j * path.img_width, i * path.img_height);
-				mlx_put_image_to_window(path.mlx, path.win, path.home, j * path.img_width, i * path.img_height);
-			}
-		}
 	}
 }
