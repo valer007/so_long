@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/21 13:30:35 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 01:18:04 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,19 @@ void	draw_inner_walls(char **map, int map_lines, t_img img, void *win)
 	}
 }
 
-void	draw_elements(char **map, t_img img, void *win)
+void	help(t_img img, void *win, int num, t_ij ij)
+{
+	if(num == 1 || num == 0)
+		draw_pair(img, win, img.player_right, ij);
+	if(num == 2)
+		draw_pair(img, win, img.player_left, ij);
+	if(num == 3)
+		draw_pair(img, win, img.player_down, ij);
+	if(num == 4)
+		draw_pair(img, win, img.player_up, ij);
+}
+
+void	draw_elements(char **map, t_img img, void *win, int num)
 {
 	t_ij	ij;
 
@@ -51,7 +63,7 @@ void	draw_elements(char **map, t_img img, void *win)
 			if (map[ij.i][ij.j] == '0')
 				draw_img(img, win, img.img, ij);
 			if (map[ij.i][ij.j] == 'P')
-				draw_pair(img, win, img.player, ij);
+				help(img, win, num, ij);
 			if (map[ij.i][ij.j] == 'C')
 				draw_pair(img, win, img.girl, ij);
 			if (map[ij.i][ij.j] == 'E')

@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/21 14:29:08 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:05:46 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	main(int argc, char **argv)
 		write(1, "Invalid map", 11);
 		return (0);
 	}
-	return (start_game(argv, map));
+	start_game(argv, map);
 }

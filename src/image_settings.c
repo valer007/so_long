@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/21 13:34:50 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 01:02:25 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,34 @@ int	close_window(void)
 	exit(0);
 }
 
+// void print_map(char **map)
+// {
+// 	int i = 0;
+// 	while (map[i])
+// 	{
+// 		printf("%s\n", map[i++]);
+		
+// 	}
+// }
+
 int	start_game(char **argv, char **map)
 {
-	void	*mlx;
-	void	*win;
-	t_img	img;
+	t_draw_ctx *test;
 	int		map_lines;
 
+	test = malloc(sizeof(t_draw_ctx));
 	map_lines = count_lines(argv[1]) - 1;
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1500, 400, "so_long");
-	load_images(&img, mlx);
-	draw_top_bottom(map, map_lines, img, win);
-	draw_left_right(map, img, win);
-	draw_inner_walls(map, map_lines, img, win);
-	draw_elements(map, img, win);
-	mlx_hook(win, 17, 0, close_window, NULL);
-	mlx_loop(mlx);
-	free_map(map);
+	test->mlx = mlx_init();
+	test->win = mlx_new_window(test->mlx, 1500, 400, "so_long");
+	test->map = map;
+	load_images(&(test->img), test->mlx);
+	draw_top_bottom(test->map, map_lines, test->img, test->win);
+	draw_left_right(test->map, test->img, test->win);
+	draw_inner_walls(test->map, map_lines, test->img, test->win);
+	draw_elements(test->map, test->img, test->win, 0);
+	mlx_hook(test->win, 2, 1L << 0, handle_key, test);
+	mlx_hook(test->win, 17, 0, close_window, test);
+	mlx_loop(test->mlx);
 	return (0);
 }
 
@@ -48,8 +58,14 @@ void	load_images(t_img *img, void *mlx)
 			"assets/traffic_lights.xpm", &img->img_width, &img->img_height);
 	img->img = mlx_xpm_file_to_image(mlx,
 			"assets/asphalt.xpm", &img->img_width, &img->img_height);
-	img->player = mlx_xpm_file_to_image(mlx,
+	img->player_right = mlx_xpm_file_to_image(mlx,
 			"assets/car_right.xpm", &img->img_width, &img->img_height);
+	img->player_left = mlx_xpm_file_to_image(mlx,
+			"assets/car_left.xpm", &img->img_width, &img->img_height);
+	img->player_down = mlx_xpm_file_to_image(mlx,
+			"assets/car_down.xpm", &img->img_width, &img->img_height);
+	img->player_up = mlx_xpm_file_to_image(mlx,
+			"assets/car_up.xpm", &img->img_width, &img->img_height);
 	img->girl = mlx_xpm_file_to_image(mlx,
 			"assets/girl.xpm", &img->img_width, &img->img_height);
 	img->home = mlx_xpm_file_to_image(mlx,
