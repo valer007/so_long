@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 00:50:48 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:25:11 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,10 @@ void	draw_img(t_img img, void *win, void *texture, t_ij ij);
 void	draw_pair(t_img img, void *win, void *texture, t_ij ij);
 int		handle_key(int keycode, void *param);
 void	print_map(char **map);
+int		find_collectible(char **map);
+void 	right(char **map, int i, int j);
+void	left(char **map, int i, int j);
+void	down(char **map, int i, int j);
+void	up(char **map, int i, int j);
+
 #endif

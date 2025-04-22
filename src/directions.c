@@ -6,55 +6,11 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:30:21 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 00:59:47 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:24:01 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void right(char **map, int i, int j)
-{
-	char temp;
-
-	if(map[i][j + 1] == '1')
-		return ;
-	temp = map[i][j];
-	map[i][j] = map[i][j + 1];
-	map[i][j + 1] = temp;
-}
-
-void left(char **map, int i, int j)
-{
-	char temp;
-	
-	if(map[i][j - 1] == '1')
-		return ;    
-	temp = map[i][j];
-	map[i][j] = map[i][j - 1];
-	map[i][j - 1] = temp; 
-}
-
-void down(char **map, int i, int j)
-{
-	char temp;
-
-	if (map[i + 1][j] == '1')
-		return ;
-	temp =  map[i][j];
-	map[i][j] = map[i + 1][j];
-	map[i + 1][j] = temp;
-}
-
-void up(char **map, int i, int j)
-{
-	char temp;
-
-	if (map[i - 1][j] == '1')
-		return ;
-	temp =  map[i][j];
-	map[i][j] = map[i - 1][j];
-	map[i - 1][j] = temp;
-}
 
 t_ij position(char **map)
 {

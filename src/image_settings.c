@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 01:02:25 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:29:11 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	start_game(char **argv, char **map)
 	mlx_hook(test->win, 2, 1L << 0, handle_key, test);
 	mlx_hook(test->win, 17, 0, close_window, test);
 	mlx_loop(test->mlx);
+	free(test);
 	return (0);
 }
 
