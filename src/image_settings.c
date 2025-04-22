@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 12:29:11 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 19:33:29 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@ int	close_window(void)
 {
 	exit(0);
 }
-
-// void print_map(char **map)
-// {
-// 	int i = 0;
-// 	while (map[i])
-// 	{
-// 		printf("%s\n", map[i++]);
-		
-// 	}
-// }
 
 int	start_game(char **argv, char **map)
 {

@@ -6,17 +6,45 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/21 19:05:46 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:46:37 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char **copy_map(char **map)
+{
+	int i;
+    char **copy;
+	int j;
+
+	i = 0;
+	j = 0;
+    while (map[i])
+        i++;
+    copy = malloc((i + 1) * sizeof(char *));
+    if (!copy)
+        return NULL;
+	while (map[j])
+	{
+		copy[j] = ft_strdup(map[j]);
+		if (!copy[j])
+		{
+			printf("faillllaaaa\n");
+		}
+		j++;
+	}
+	printf("ok\n");
+	copy[i] = NULL;
+	return (copy);
+}
 
 int	main(int argc, char **argv)
 {
 	char		**map;
 	const char	*file_name;
 	int			fd;
+	char		**copy;
 
 	if (argc != 2)
 		return (0);
@@ -38,5 +66,17 @@ int	main(int argc, char **argv)
 		write(1, "Invalid map", 11);
 		return (0);
 	}
+	copy = copy_map(map);
+	if (!copy)
+	{
+		printf("mapy chka\n");
+	}
+	printf("this\n");
+	if (!flood_fill(copy))
+	{
+		printf("flood filla \n");
+		return (0);
+	}
+	free_map(copy);
 	start_game(argv, map);
 }

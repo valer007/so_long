@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 12:25:11 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 20:03:38 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ int		count_lines(const char *file_name);
 int		start_game(char **argv, char **map);
 char	**create_map(const char *file_name);
 void	free_map(char **map);
+int		flood_fill(char **map);
 
 t_img	image_path(void);
+t_ij	position(char **map);
 void	load_images(t_img *img, void *mlx);
 void	draw_top_bottom(char **map, int map_lines, t_img img, void *win);
 void	draw_left_right(char **map, t_img img, void *win);
