@@ -23,7 +23,9 @@ void right(char **map, int i, int j)
 {
 	char temp;
 
-	if((map[i][j + 1] == '1' || map[i][j + 1] == 'E') && !find_collectible(map))
+	if(map[i][j + 1] == '1' && find_collectible(map))
+		return ;
+	else if((map[i][j + 1] == '1' || map[i][j + 1] == 'E') && !find_collectible(map))
 		return ;
 	else if(map[i][j + 1] == 'C')
 		map[i][j + 1] = '0';
@@ -37,8 +39,10 @@ void right(char **map, int i, int j)
 void left(char **map, int i, int j)
 {
 	char temp;
-	
-	if((map[i][j - 1] == '1' || map[i][j - 1] == 'E') && !find_collectible(map))
+
+	if(map[i][j - 1] == '1' && find_collectible(map))
+		return ; 
+	else if((map[i][j - 1] == '1' || map[i][j - 1] == 'E') && !find_collectible(map))
 		return ;    
 	else if(map[i][j - 1] == 'C')
 		map[i][j - 1] = '0';
@@ -53,7 +57,9 @@ void down(char **map, int i, int j)
 {
 	char temp;
 
-	if ((map[i + 1][j] == '1' || map[i + 1][j] == 'E') && !find_collectible(map))
+	if (map[i + 1][j] == '1' && find_collectible(map))
+		return ;
+	else if ((map[i + 1][j] == '1' || map[i + 1][j] == 'E')  && !find_collectible(map))
 		return ;
 	else if(map[i + 1][j] == 'C')
 		map[i + 1][j] = '0';
@@ -68,7 +74,11 @@ void up(char **map, int i, int j)
 {
 	char temp;
 
-	if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E') && !find_collectible(map))
+	if (map[i - 1][j] == '1' && find_collectible(map))
+		return ;
+	else if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E') && find_collectible(map))
+		return ;
+	else if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E') && !find_collectible(map))
 		return ;
 	else if(map[i - 1][j] == 'C')
 		map[i - 1][j] = '0';

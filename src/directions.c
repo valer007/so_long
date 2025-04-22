@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:30:21 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 12:24:01 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:46:41 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ t_ij position(char **map)
 	return (ij);
 }
 
-int	handle_key(int keycode, void *param)
+static void help(int keycode, t_draw_ctx *test, t_ij ij)
 {
-	t_ij ij;
-	t_draw_ctx *test;
-
-	test = (t_draw_ctx *)param;
-	ij = position(test->map);
 	if (keycode == D)
 	{
 		right(test->map, ij.i, ij.j);
@@ -58,5 +53,14 @@ int	handle_key(int keycode, void *param)
 		up(test->map, ij.i, ij.j);
 		draw_elements(test->map, test->img, test->win, 4);
 	}
+}
+int	handle_key(int keycode, void *param)
+{
+	t_ij ij;
+	t_draw_ctx *test;
+
+	test = (t_draw_ctx *)param;
+	ij = position(test->map);
+	help(keycode, test , ij);
 	return (0);
 }
