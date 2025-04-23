@@ -76,8 +76,6 @@ void up(char **map, int i, int j)
 
 	if (map[i - 1][j] == '1' && find_collectible(map))
 		return ;
-	else if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E') && find_collectible(map))
-		return ;
 	else if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E') && !find_collectible(map))
 		return ;
 	else if(map[i - 1][j] == 'C')

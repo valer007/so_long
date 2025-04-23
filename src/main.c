@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 20:46:37 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:05:01 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,8 @@ char **copy_map(char **map)
 	while (map[j])
 	{
 		copy[j] = ft_strdup(map[j]);
-		if (!copy[j])
-		{
-			printf("faillllaaaa\n");
-		}
 		j++;
 	}
-	printf("ok\n");
 	copy[i] = NULL;
 	return (copy);
 }
@@ -61,20 +56,10 @@ int	main(int argc, char **argv)
 	map = create_map(file_name);
 	if (map == NULL)
 		return (0);
-	if (check_arguments(map) == 0)
+	copy = copy_map(map);
+	if (check_arguments(map) == 0 || !flood_fill_for_C(copy) || !flood_fill_for_E(copy))
 	{
 		write(1, "Invalid map", 11);
-		return (0);
-	}
-	copy = copy_map(map);
-	if (!copy)
-	{
-		printf("mapy chka\n");
-	}
-	printf("this\n");
-	if (!flood_fill(copy))
-	{
-		printf("flood filla \n");
 		return (0);
 	}
 	free_map(copy);

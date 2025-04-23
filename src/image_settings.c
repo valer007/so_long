@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 19:33:29 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:23:42 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	start_game(char **argv, char **map)
 	mlx_hook(test->win, 17, 0, close_window, test);
 	mlx_loop(test->mlx);
 	free(test);
+	free_map(map);
 	return (0);
 }
 
@@ -61,6 +62,10 @@ void	load_images(t_img *img, void *mlx)
 			"assets/girl.xpm", &img->img_width, &img->img_height);
 	img->home = mlx_xpm_file_to_image(mlx,
 			"assets/home.xpm", &img->img_width, &img->img_height);
+	img->enemy_left = mlx_xpm_file_to_image(mlx,
+			"assets/enemy_left.xpm", &img->img_width, &img->img_height);
+	img->enemy_left = mlx_xpm_file_to_image(mlx,
+			"assets/enemy_right.xpm", &img->img_width, &img->img_height);
 }
 
 void	draw_top_bottom(char **map, int map_lines, t_img img, void *win)

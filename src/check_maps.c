@@ -6,23 +6,25 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:35:36 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/21 14:24:20 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:20:18 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	validate_char(char ch, int *e, int *c, int *p)
+static int	validate_char(char ch, t_character *chr)
 {
 	if (ch == 'E')
-		(*e)++;
+		chr->e++;
 	else if (ch == 'C')
-		(*c)++;
+		chr->c++;
 	else if (ch == 'P')
-		(*p)++;
+		chr->p++;
+	else if (ch  == 'M')
+		chr->m++;
 	else if (ch != '0' && ch != '1' && ch != '\n')
 		return (0);
-	if (*e > 1 || *p > 1)
+	if (chr->e > 1 ||  chr->p > 1 || chr->m > 1)
 		return (0);
 	return (1);
 }
@@ -31,26 +33,26 @@ int	check_arguments(char **map)
 {
 	int	i;
 	int	j;
-	int	e;
-	int	c;
-	int	p;
+	t_character ch;
 
-	e = 0;
-	c = 0;
-	p = 0;
+	ch.e = 0;
+	ch.c = 0;
+	ch.p = 0;
+	ch.m = 0; 
+
 	i = 1;
 	while (map[i])
 	{
 		j = 1;
 		while (map[i][j])
 		{
-			if (!validate_char(map[i][j], &e, &c, &p))
+			if (!validate_char(map[i][j], &ch))
 				return (0);
 			j++;
 		}
 		i++;
 	}
-	if (c == 0 || e == 0 || p == 0)
+	if (ch.c == 0 || ch.e == 0 || ch.p == 0 || ch.m == 0)
 		return (0);
 	return (1);
 }

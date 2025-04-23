@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:30:21 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 14:46:41 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:23:37 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ t_ij position(char **map)
 		while (map[ij.i][ij.j])
 		{
 			if (map[ij.i][ij.j] == 'P')
+				return (ij);
+			ij.j++;
+		}
+		ij.i++;
+	}
+	return (ij);
+}
+
+t_ij position_E(char **map)
+{
+	t_ij ij;
+
+	ij.i = 0;
+	while (map && map[ij.i])
+	{
+		ij.j = 0;
+		while (map[ij.i][ij.j])
+		{
+			if (map[ij.i][ij.j] == 'E')
 				return (ij);
 			ij.j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 20:03:38 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:28:05 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 # define S 1
 # define D 2
 # define W 13
+
+typedef struct s_character
+{
+	int	e;
+	int	c;
+	int	p;
+	int m;
+}	t_character;
 
 typedef struct s_arg
 {
@@ -43,6 +51,8 @@ typedef struct s_img
 	void	*player_down;
 	void	*girl;
 	void	*home;
+	void	*enemy_left;
+	void	*enemy_right;
 	void	*player_left;
 	int		img_width;
 	int		img_height;
@@ -70,10 +80,12 @@ int		count_lines(const char *file_name);
 int		start_game(char **argv, char **map);
 char	**create_map(const char *file_name);
 void	free_map(char **map);
-int		flood_fill(char **map);
+int		flood_fill_for_E(char **map);
+int		flood_fill_for_C(char **map);
 
 t_img	image_path(void);
 t_ij	position(char **map);
+t_ij	position_E(char **map);
 void	load_images(t_img *img, void *mlx);
 void	draw_top_bottom(char **map, int map_lines, t_img img, void *win);
 void	draw_left_right(char **map, t_img img, void *win);

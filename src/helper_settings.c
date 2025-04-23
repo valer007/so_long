@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/22 01:18:04 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:25:07 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	draw_elements(char **map, t_img img, void *win, int num)
 				draw_pair(img, win, img.girl, ij);
 			if (map[ij.i][ij.j] == 'E')
 				draw_pair(img, win, img.home, ij);
+			if (map[ij.i][ij.j] == 'M')
+				draw_pair(img, win, img.enemy_left, ij);
 			ij.j++;
 		}
 		ij.i++;
