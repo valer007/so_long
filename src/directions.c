@@ -5,18 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 14:30:21 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/23 16:23:37 by vmakarya         ###   ########.fr       */
+/*   Created: 2025/04/23 20:09:35 by vmakarya          #+#    #+#             */
+/*   Updated: 2025/04/25 18:18:56 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_ij position(char **map)
+t_ij	position(char **map)
 {
-	t_ij ij;
+	t_ij	ij;
 
 	ij.i = 0;
+	ij.j = 0;
+	if (!map)
+		return (ij);
 	while (map && map[ij.i])
 	{
 		ij.j = 0;
@@ -31,9 +34,9 @@ t_ij position(char **map)
 	return (ij);
 }
 
-t_ij position_E(char **map)
+t_ij	position_e(char **map)
 {
-	t_ij ij;
+	t_ij	ij;
 
 	ij.i = 0;
 	while (map && map[ij.i])
@@ -50,36 +53,37 @@ t_ij position_E(char **map)
 	return (ij);
 }
 
-static void help(int keycode, t_draw_ctx *test, t_ij ij)
+static void	move_player(int keycode, t_drawctx *ctx, t_ij ij)
 {
 	if (keycode == D)
 	{
-		right(test->map, ij.i, ij.j);
-		draw_elements(test->map, test->img, test->win, 1);
+		right(ctx->map, ij.i, ij.j);
+		draw_elements(ctx, 1);
 	}
 	if (keycode == A)
 	{
-		left(test->map, ij.i, ij.j);
-		draw_elements(test->map, test->img, test->win, 2);
+		left(ctx->map, ij.i, ij.j);
+		draw_elements(ctx, 2);
 	}
 	if (keycode == S)
 	{
-		down(test->map, ij.i, ij.j);
-		draw_elements(test->map, test->img, test->win, 3);
+		down(ctx->map, ij.i, ij.j);
+		draw_elements(ctx, 3);
 	}
 	if (keycode == W)
 	{
-		up(test->map, ij.i, ij.j);
-		draw_elements(test->map, test->img, test->win, 4);
+		up(ctx->map, ij.i, ij.j);
+		draw_elements(ctx, 4);
 	}
 }
+
 int	handle_key(int keycode, void *param)
 {
-	t_ij ij;
-	t_draw_ctx *test;
+	t_ij		ij;
+	t_drawctx	*ctx;
 
-	test = (t_draw_ctx *)param;
-	ij = position(test->map);
-	help(keycode, test , ij);
+	ctx = (t_drawctx *)param;
+	ij = position(ctx->map);
+	move_player(keycode, ctx, ij);
 	return (0);
 }

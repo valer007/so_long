@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:35:36 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/23 18:20:18 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:09:43 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,25 @@ static int	validate_char(char ch, t_character *chr)
 		chr->c++;
 	else if (ch == 'P')
 		chr->p++;
-	else if (ch  == 'M')
+	else if (ch == 'M')
 		chr->m++;
 	else if (ch != '0' && ch != '1' && ch != '\n')
 		return (0);
-	if (chr->e > 1 ||  chr->p > 1 || chr->m > 1)
+	if (chr->e > 1 || chr->p > 1)
 		return (0);
 	return (1);
 }
 
 int	check_arguments(char **map)
 {
-	int	i;
-	int	j;
-	t_character ch;
+	int			i;
+	int			j;
+	t_character	ch;
 
 	ch.e = 0;
 	ch.c = 0;
 	ch.p = 0;
-	ch.m = 0; 
-
+	ch.m = 0;
 	i = 1;
 	while (map[i])
 	{
@@ -52,7 +51,7 @@ int	check_arguments(char **map)
 		}
 		i++;
 	}
-	if (ch.c == 0 || ch.e == 0 || ch.p == 0 || ch.m == 0)
+	if (ch.c == 0 || ch.e == 0 || ch.p == 0)
 		return (0);
 	return (1);
 }
@@ -82,15 +81,15 @@ static int	check_body(t_arg *arg, int fd)
 			arg->map[ft_strlen(arg->map) - 1] = '\0';
 		if (ft_strlen(arg->map) != arg->len || arg->map[0] != '1'
 			|| arg->map[arg->len - 1] != '1')
-			return (free(arg->map), free(arg->first_line),
-				free(arg->last_line), 0);
+			return (free(arg->map), free(arg->first_line), free(arg->last_line),
+				0);
 		free(arg->last_line);
 		arg->last_line = ft_strdup(arg->map);
 		free(arg->map);
 		arg->map = get_next_line(fd);
 	}
-	if (!arg->last_line
-		|| ft_strncmp(arg->last_line, arg->first_line, arg->len) != 0)
+	if (!arg->last_line || ft_strncmp(arg->last_line, arg->first_line,
+			arg->len) != 0)
 		return (free(arg->last_line), free(arg->first_line), 0);
 	return (free(arg->last_line), free(arg->first_line), 1);
 }
