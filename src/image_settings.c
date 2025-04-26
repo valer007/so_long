@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:38:41 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:32:19 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	start_game(char **argv, char **map)
 	test->dir = 1;
 	map_lines = count_lines(argv[1]) - 1;
 	test->mlx = mlx_init();
-	test->win = mlx_new_window(test->mlx, 1500, 400, "so_long");
+	test->win = mlx_new_window(test->mlx, ft_strlen(map[0]) * WIDTH,
+			(map_lines + 1) * HEIGHT, "so_long");
 	test->map = map;
 	load_images(&(test->img), test->mlx);
 	draw_top_bottom(test->map, map_lines, test->img, test->win);
@@ -47,7 +48,7 @@ void	load_images(t_img *img, void *mlx)
 {
 	img->img_width = 0;
 	img->img_height = 0;
-	img->shenq_img = mlx_xpm_file_to_image(mlx, "assets/shenq.xpm",
+	img->grass = mlx_xpm_file_to_image(mlx, "assets/grass.xpm",
 			&img->img_width, &img->img_height);
 	img->lights = mlx_xpm_file_to_image(mlx, "assets/traffic_lights.xpm",
 			&img->img_width, &img->img_height);
@@ -82,11 +83,11 @@ void	draw_top_bottom(char **map, int map_lines, t_img img, void *win)
 		{
 			mlx_put_image_to_window(img.mlx, win, img.img, j * img.img_width, 0
 				* img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.shenq_img, j
+			mlx_put_image_to_window(img.mlx, win, img.grass, j
 				* img.img_width, 0 * img.img_height);
 			mlx_put_image_to_window(img.mlx, win, img.img, j * img.img_width,
 				map_lines * img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.shenq_img, j
+			mlx_put_image_to_window(img.mlx, win, img.grass, j
 				* img.img_width, map_lines * img.img_height);
 		}
 		j++;
@@ -106,14 +107,14 @@ void	draw_left_right(char **map, t_img img, void *win)
 		{
 			mlx_put_image_to_window(img.mlx, win, img.img, 0 * img.img_width, i
 				* img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.shenq_img, 0
+			mlx_put_image_to_window(img.mlx, win, img.grass, 0
 				* img.img_width, i * img.img_height);
 		}
 		if (map[i][size] == '1')
 		{
 			mlx_put_image_to_window(img.mlx, win, img.img, size * img.img_width,
 				i * img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.shenq_img, size
+			mlx_put_image_to_window(img.mlx, win, img.grass, size
 				* img.img_width, i * img.img_height);
 		}
 		i++;

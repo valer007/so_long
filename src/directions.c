@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:29:26 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:35:49 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_ij	position_e(char **map)
 
 static void	move_player(int keycode, t_drawctx *ctx, t_ij ij)
 {
+	if (keycode == ESC)
+		close_window(ctx);
 	if (keycode == D)
 	{
 		right(ctx->map, ij.i, ij.j);

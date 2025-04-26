@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:38:01 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:35:38 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define S 1
 # define D 2
 # define W 13
+# define ESC 53
+# define HEIGHT 60
+# define WIDTH 57
 
 typedef struct s_character
 {
@@ -45,7 +48,7 @@ typedef struct s_img
 	void	*win;
 	void	*mlx;
 	void	*img;
-	void	*shenq_img;
+	void	*grass;
 	void	*lights;
 	void	*player_right;
 	void	*player_up;
@@ -80,6 +83,7 @@ typedef struct s_ij
 }			t_ij;
 
 void		set_enemy_position(t_drawctx *ctx);
+int			close_window(t_drawctx *test);
 int			check_map(int fd);
 void		draw_move(t_drawctx *ctx);
 int			check_arguments(char **map);
