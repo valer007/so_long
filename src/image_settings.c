@@ -6,14 +6,15 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/25 19:32:24 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:38:41 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	close_window(void)
+int	close_window(t_drawctx *test)
 {
+	free(test);
 	exit(0);
 }
 
@@ -24,6 +25,7 @@ int	start_game(char **argv, char **map)
 
 	test = malloc(sizeof(t_drawctx));
 	test->frame_count = 0;
+	test->move_count = 0;
 	test->dir = 1;
 	map_lines = count_lines(argv[1]) - 1;
 	test->mlx = mlx_init();
@@ -37,7 +39,6 @@ int	start_game(char **argv, char **map)
 	mlx_hook(test->win, 2, 1L << 0, handle_key, test);
 	mlx_hook(test->win, 17, 0, close_window, test);
 	mlx_loop(test->mlx);
-	free(test);
 	free_map(map);
 	return (0);
 }

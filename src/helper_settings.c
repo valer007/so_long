@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/25 17:55:06 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:37:19 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	draw_elements(t_drawctx *ctx, int num)
 	while (ctx->map[ij.i])
 	{
 		ij.j = 0;
-		while (ctx->map[ij.i][ij.j])
+		while (ctx->map[ij.i][ij.j++])
 		{
 			if (ctx->map[ij.i][ij.j] == '0')
 				draw_img(ctx->img, ctx->win, ctx->img.img, ij);
@@ -73,10 +73,10 @@ void	draw_elements(t_drawctx *ctx, int num)
 				set_enemy_position(ctx);
 				mlx_loop_hook(ctx->mlx, move_characters, ctx);
 			}
-			ij.j++;
 		}
 		ij.i++;
 	}
+	draw_move(ctx);
 }
 
 void	draw_img(t_img img, void *win, void *texture, t_ij ij)

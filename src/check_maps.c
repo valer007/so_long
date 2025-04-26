@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:35:36 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/23 20:09:43 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:37:13 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	validate_char(char ch, t_character *chr)
 		chr->m++;
 	else if (ch != '0' && ch != '1' && ch != '\n')
 		return (0);
-	if (chr->e > 1 || chr->p > 1)
+	if (chr->e > 1 || chr->p > 1 || chr->m > 1)
 		return (0);
 	return (1);
 }

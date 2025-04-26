@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/25 19:43:53 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:39:44 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	set_enemy_position(t_drawctx *ctx)
 		{
 			if (ctx->map[i][j] == 'M')
 			{
-				if(ctx->map[i][j - 1] == '1' && ctx->map[i][j + 1] == '1')
+				if (ctx->map[i][j - 1] == '1' && ctx->map[i][j + 1] == '1')
 				{
-					write(1, "invalide map", 11); 
+					write(1, "invalide map", 11);
 					exit(0);
 				}
 				ctx->i = i;

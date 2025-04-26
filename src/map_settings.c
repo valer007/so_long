@@ -6,11 +6,20 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:08:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/23 20:08:10 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:40:10 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	draw_move(t_drawctx *ctx)
+{
+	char	*str;
+
+	str = ft_itoa(ctx->move_count);
+	mlx_string_put(ctx->mlx, ctx->win, 10, 10, 0x0000FF, str);
+	free(str);
+}
 
 void	free_map(char **map)
 {

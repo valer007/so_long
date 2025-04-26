@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/25 19:39:29 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:38:01 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_drawctx
 	char	**map;
 	int		frame_count;
 	int		dir;
+	int		move_count;
+	char	*str;
 }			t_drawctx;
 
 typedef struct s_ij
@@ -79,6 +81,7 @@ typedef struct s_ij
 
 void		set_enemy_position(t_drawctx *ctx);
 int			check_map(int fd);
+void		draw_move(t_drawctx *ctx);
 int			check_arguments(char **map);
 int			count_lines(const char *file_name);
 int			start_game(char **argv, char **map);
