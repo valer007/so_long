@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:39:44 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:36:46 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	helper(t_drawctx *ctx, t_ij ij, int next_j)
 	if (ctx->map[ij.i][next_j] == 'P')
 		exit(0);
 	draw_pair(ctx->img, ctx->win, ctx->img.img, ij);
-	if (ctx->map[ij.i][next_j] != '1' && ctx->map[ij.i][next_j] != 'C')
+	if (ctx->map[ij.i][next_j] != '1' && ctx->map[ij.i][next_j] != 'C'
+		&& ctx->map[ij.i][next_j] != 'E')
 	{
 		swap(&ctx->map[ij.i][ij.j], &ctx->map[ij.i][next_j]);
 		ctx->j = next_j;
