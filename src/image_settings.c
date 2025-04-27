@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 23:32:19 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:11:29 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	load_images(t_img *img, void *mlx)
 {
 	img->img_width = 0;
 	img->img_height = 0;
+	img->mlx = mlx;
 	img->grass = mlx_xpm_file_to_image(mlx, "assets/grass.xpm",
 			&img->img_width, &img->img_height);
-	img->lights = mlx_xpm_file_to_image(mlx, "assets/traffic_lights.xpm",
+	img->lights = mlx_xpm_file_to_image(mlx, "assets/lights.xpm",
 			&img->img_width, &img->img_height);
 	img->img = mlx_xpm_file_to_image(mlx, "assets/asphalt.xpm", &img->img_width,
 			&img->img_height);
@@ -62,7 +63,7 @@ void	load_images(t_img *img, void *mlx)
 			&img->img_width, &img->img_height);
 	img->player_up = mlx_xpm_file_to_image(mlx, "assets/car_up.xpm",
 			&img->img_width, &img->img_height);
-	img->girl = mlx_xpm_file_to_image(mlx, "assets/girl.xpm", &img->img_width,
+	img->girl = mlx_xpm_file_to_image(mlx, "assets/girls.xpm", &img->img_width,
 			&img->img_height);
 	img->home = mlx_xpm_file_to_image(mlx, "assets/home.xpm", &img->img_width,
 			&img->img_height);

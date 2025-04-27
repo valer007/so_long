@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:08:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:40:10 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:11:59 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	free_map(char **map)
 
 	i = 0;
 	while (map[i])
-		free(map[i++]);
+	{
+		free(map[i]);
+		i++;
+	}
 	free(map);
 }
 

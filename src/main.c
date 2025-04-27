@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 17:54:21 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:19:26 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	validate_and_start(const char *file_name, char **argv)
 		free_map(map);
 		return (0);
 	}
+	free_map(copy);
 	copy = copy_map(map);
 	if (!flood_fill_for_c(copy))
 	{

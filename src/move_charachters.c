@@ -6,7 +6,7 @@
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 22:36:46 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:05:38 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,17 @@ void	helper(t_drawctx *ctx, t_ij ij, int next_j)
 {
 	if (ctx->map[ij.i][next_j] == 'P')
 		exit(0);
-	draw_pair(ctx->img, ctx->win, ctx->img.img, ij);
+	draw_img(ctx->img, ctx->win, ctx->img.img, ij);
 	if (ctx->map[ij.i][next_j] != '1' && ctx->map[ij.i][next_j] != 'C'
 		&& ctx->map[ij.i][next_j] != 'E')
 	{
 		swap(&ctx->map[ij.i][ij.j], &ctx->map[ij.i][next_j]);
 		ctx->j = next_j;
 		if (ctx->dir == 1)
-			draw_pair(ctx->img, ctx->win, ctx->img.enemy_right,
+			draw_img(ctx->img, ctx->win, ctx->img.enemy_right,
 				(t_ij){ij.i, next_j});
 		else
-			draw_pair(ctx->img, ctx->win, ctx->img.enemy_left,
+			draw_img(ctx->img, ctx->win, ctx->img.enemy_left,
 				(t_ij){ij.i, next_j});
 	}
 	else
