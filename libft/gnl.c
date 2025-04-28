@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:53:48 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/13 18:10:07 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:57:58 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_next_line(int fd)
 	int			bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (free(str), NULL);
 	while (!ft_strchr(str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);

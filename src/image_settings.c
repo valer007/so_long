@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_settings.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/27 22:11:29 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:30:11 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	close_window(t_drawctx *test)
 {
-	free(test);
-	exit(0);
+	free_mlx(test);
+	return (0);
 }
 
 int	start_game(char **argv, char **map)
@@ -32,91 +32,89 @@ int	start_game(char **argv, char **map)
 	test->win = mlx_new_window(test->mlx, ft_strlen(map[0]) * WIDTH,
 			(map_lines + 1) * HEIGHT, "so_long");
 	test->map = map;
-	load_images(&(test->img), test->mlx);
-	draw_top_bottom(test->map, map_lines, test->img, test->win);
-	draw_left_right(test->map, test->img, test->win);
-	draw_inner_walls(test->map, map_lines, test->img, test->win);
+	load_images(test);
+	draw_top_bottom(test, map_lines);
+	draw_left_right(test);
+	draw_inner_walls(test, map_lines);
 	draw_elements(test, 0);
 	mlx_hook(test->win, 2, 1L << 0, handle_key, test);
 	mlx_hook(test->win, 17, 0, close_window, test);
 	mlx_loop(test->mlx);
-	free_map(map);
 	return (0);
 }
 
-void	load_images(t_img *img, void *mlx)
+void	load_images(t_drawctx *ctx)
 {
-	img->img_width = 0;
-	img->img_height = 0;
-	img->mlx = mlx;
-	img->grass = mlx_xpm_file_to_image(mlx, "assets/grass.xpm",
-			&img->img_width, &img->img_height);
-	img->lights = mlx_xpm_file_to_image(mlx, "assets/lights.xpm",
-			&img->img_width, &img->img_height);
-	img->img = mlx_xpm_file_to_image(mlx, "assets/asphalt.xpm", &img->img_width,
-			&img->img_height);
-	img->player_right = mlx_xpm_file_to_image(mlx, "assets/car_right.xpm",
-			&img->img_width, &img->img_height);
-	img->player_left = mlx_xpm_file_to_image(mlx, "assets/car_left.xpm",
-			&img->img_width, &img->img_height);
-	img->player_down = mlx_xpm_file_to_image(mlx, "assets/car_down.xpm",
-			&img->img_width, &img->img_height);
-	img->player_up = mlx_xpm_file_to_image(mlx, "assets/car_up.xpm",
-			&img->img_width, &img->img_height);
-	img->girl = mlx_xpm_file_to_image(mlx, "assets/girls.xpm", &img->img_width,
-			&img->img_height);
-	img->home = mlx_xpm_file_to_image(mlx, "assets/home.xpm", &img->img_width,
-			&img->img_height);
-	img->enemy_left = mlx_xpm_file_to_image(mlx, "assets/enemy_left.xpm",
-			&img->img_width, &img->img_height);
-	img->enemy_right = mlx_xpm_file_to_image(mlx, "assets/enemy_right.xpm",
-			&img->img_width, &img->img_height);
+	ctx->img.img_width = 0;
+	ctx->img.img_height = 0;
+	ctx->img.grass = mlx_xpm_file_to_image(ctx->mlx, "assets/grass.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.lights = mlx_xpm_file_to_image(ctx->mlx, "assets/lights.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.img = mlx_xpm_file_to_image(ctx->mlx, "assets/asphalt.xpm", &ctx->img.img_width,
+			&ctx->img.img_height);
+	ctx->img.player_right = mlx_xpm_file_to_image(ctx->mlx, "assets/car_right.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.player_left = mlx_xpm_file_to_image(ctx->mlx, "assets/car_left.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.player_down = mlx_xpm_file_to_image(ctx->mlx, "assets/car_down.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.player_up = mlx_xpm_file_to_image(ctx->mlx, "assets/car_up.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.girl = mlx_xpm_file_to_image(ctx->mlx, "assets/girls.xpm", &ctx->img.img_width,
+			&ctx->img.img_height);
+	ctx->img.home = mlx_xpm_file_to_image(ctx->mlx, "assets/home.xpm", &ctx->img.img_width,
+			&ctx->img.img_height);
+	ctx->img.enemy_left = mlx_xpm_file_to_image(ctx->mlx, "assets/enemy_left.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.enemy_right = mlx_xpm_file_to_image(ctx->mlx, "assets/enemy_right.xpm",
+			&ctx->img.img_width, &ctx->img.img_height);
 }
 
-void	draw_top_bottom(char **map, int map_lines, t_img img, void *win)
+void	draw_top_bottom(t_drawctx *ctx, int map_lines)
 {
 	int	j;
 
 	j = 0;
-	while (map[0][j])
+	while (ctx->map[0][j])
 	{
-		if (map[0][j] == '1' && map[map_lines][j] == '1')
+		if (ctx->map[0][j] == '1' && ctx->map[map_lines][j] == '1')
 		{
-			mlx_put_image_to_window(img.mlx, win, img.img, j * img.img_width, 0
-				* img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.grass, j
-				* img.img_width, 0 * img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.img, j * img.img_width,
-				map_lines * img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.grass, j
-				* img.img_width, map_lines * img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, j * ctx->img.img_width, 0
+				* ctx->img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.grass, j
+				* ctx->img.img_width, 0 * ctx->img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, j * ctx->img.img_width,
+				map_lines * ctx->img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.grass, j
+				* ctx->img.img_width, map_lines * ctx->img.img_height);
 		}
 		j++;
 	}
 }
 
-void	draw_left_right(char **map, t_img img, void *win)
+void	draw_left_right(t_drawctx *ctx)
 {
 	int	i;
 	int	size;
 
-	size = ft_strlen(map[0]) - 2;
+	size = ft_strlen(ctx->map[0]) - 2;
 	i = 0;
-	while (map[i])
+	while (ctx->map[i])
 	{
-		if (map[i][0] == '1')
+		if (ctx->map[i][0] == '1')
 		{
-			mlx_put_image_to_window(img.mlx, win, img.img, 0 * img.img_width, i
-				* img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.grass, 0
-				* img.img_width, i * img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, 0 * ctx->img.img_width, i
+				* ctx->img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.grass, 0
+				* ctx->img.img_width, i * ctx->img.img_height);
 		}
-		if (map[i][size] == '1')
+		if (ctx->map[i][size] == '1')
 		{
-			mlx_put_image_to_window(img.mlx, win, img.img, size * img.img_width,
-				i * img.img_height);
-			mlx_put_image_to_window(img.mlx, win, img.grass, size
-				* img.img_width, i * img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, size * ctx->img.img_width,
+				i * ctx->img.img_height);
+			mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.grass, size
+				* ctx->img.img_width, i * ctx->img.img_height);
 		}
 		i++;
 	}

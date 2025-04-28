@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/27 22:19:26 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 20:14:57 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int	validate_and_start(const char *file_name, char **argv)
 	if (!map)
 		return (0);
 	copy = copy_map(map);
-	if (!copy || check_arguments(map) == 0
-		|| !flood_fill_for_e(copy))
+	if (!copy || check_arguments(map) == 0 || !flood_fill_for_e(copy))
 	{
 		write(1, "Invalid map", 11);
 		free_map(copy);
@@ -79,7 +78,8 @@ int	validate_and_start(const char *file_name, char **argv)
 		free_map(map);
 		return (0);
 	}
-	return (free_map(copy), start_game(argv, map), 1);
+	free_map(copy);
+	return (start_game(argv, map), 1);
 }
 
 int	main(int argc, char **argv)

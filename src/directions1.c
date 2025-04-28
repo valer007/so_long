@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directions1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:23 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 17:43:24 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:10:20 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,82 +31,106 @@ int	find_collectible(char **map)
 	return (1);
 }
 
-void	right(char **map, int i, int j)
+void	right(t_drawctx *ctx, int i, int j)
 {
 	char	temp;
 
-	if (map[i][j + 1] == '1' && find_collectible(map))
+	if (ctx->map[i][j + 1] == '1' && find_collectible(ctx->map))
 		return ;
-	else if ((map[i][j + 1] == '1' || map[i][j + 1] == 'E')
-		&& !find_collectible(map))
+	else if ((ctx->map[i][j + 1] == '1' || ctx->map[i][j + 1] == 'E')
+		&& !find_collectible(ctx->map))
 		return ;
-	else if (map[i][j + 1] == 'C')
-		map[i][j + 1] = '0';
-	else if (map[i][j + 1] == 'M')
-		exit(0);
-	else if (map[i][j + 1] == 'E' && find_collectible(map))
-		exit(0);
-	temp = map[i][j];
-	map[i][j] = map[i][j + 1];
-	map[i][j + 1] = temp;
+	else if (ctx->map[i][j + 1] == 'C')
+		ctx->map[i][j + 1] = '0';
+	else if (ctx->map[i][j + 1] == 'M')
+	{
+		if (ctx)
+			free_mlx(ctx);
+	}
+	else if (ctx->map[i][j + 1] == 'E' && find_collectible(ctx->map))
+	{
+		if (ctx)
+			free_mlx(ctx);
+	}
+	temp = ctx->map[i][j];
+	ctx->map[i][j] = ctx->map[i][j + 1];
+	ctx->map[i][j + 1] = temp;
 }
 
-void	left(char **map, int i, int j)
+void	left(t_drawctx *ctx, int i, int j)
 {
 	char	temp;
 
-	if (map[i][j - 1] == '1' && find_collectible(map))
+	if (ctx->map[i][j - 1] == '1' && find_collectible(ctx->map))
 		return ;
-	else if ((map[i][j - 1] == '1' || map[i][j - 1] == 'E')
-		&& !find_collectible(map))
+	else if ((ctx->map[i][j - 1] == '1' || ctx->map[i][j - 1] == 'E')
+		&& !find_collectible(ctx->map))
 		return ;
-	else if (map[i][j - 1] == 'C')
-		map[i][j - 1] = '0';
-	else if (map[i][j - 1] == 'M')
-		exit(0);
-	else if (map[i][j - 1] == 'E' && find_collectible(map))
-		exit(0);
-	temp = map[i][j];
-	map[i][j] = map[i][j - 1];
-	map[i][j - 1] = temp;
+	else if (ctx->map[i][j - 1] == 'C')
+		ctx->map[i][j - 1] = '0';
+	else if (ctx->map[i][j - 1] == 'M')
+	{
+		if (ctx->map)
+			free_mlx(ctx);
+	}
+	else if (ctx->map[i][j - 1] == 'E' && find_collectible(ctx->map))
+	{
+		if (ctx->map)
+			free_mlx(ctx);
+	}
+	temp = ctx->map[i][j];
+	ctx->map[i][j] = ctx->map[i][j - 1];
+	ctx->map[i][j - 1] = temp;
 }
 
-void	down(char **map, int i, int j)
+void	down(t_drawctx *ctx, int i, int j)
 {
 	char	temp;
 
-	if (map[i + 1][j] == '1' && find_collectible(map))
+	if (ctx->map[i + 1][j] == '1' && find_collectible(ctx->map))
 		return ;
-	else if ((map[i + 1][j] == '1' || map[i + 1][j] == 'E')
-		&& !find_collectible(map))
+	else if ((ctx->map[i + 1][j] == '1' || ctx->map[i + 1][j] == 'E')
+		&& !find_collectible(ctx->map))
 		return ;
-	else if (map[i + 1][j] == 'C')
-		map[i + 1][j] = '0';
-	else if (map[i + 1][j] == 'M')
-		exit(0);
-	else if (map[i + 1][j] == 'E' && find_collectible(map))
-		exit(0);
-	temp = map[i][j];
-	map[i][j] = map[i + 1][j];
-	map[i + 1][j] = temp;
+	else if (ctx->map[i + 1][j] == 'C')
+		ctx->map[i + 1][j] = '0';
+	else if (ctx->map[i + 1][j] == 'M')
+	{
+		if(ctx->map)
+			free_mlx(ctx);
+	}
+	else if (ctx->map[i + 1][j] == 'E' && find_collectible(ctx->map))
+	{
+		if(ctx->map)
+			free_mlx(ctx);
+	}
+	temp = ctx->map[i][j];
+	ctx->map[i][j] = ctx->map[i + 1][j];
+	ctx->map[i + 1][j] = temp;
 }
 
-void	up(char **map, int i, int j)
+void	up(t_drawctx *ctx, int i, int j)
 {
 	char	temp;
 
-	if (map[i - 1][j] == '1' && find_collectible(map))
+	if (ctx->map[i - 1][j] == '1' && find_collectible(ctx->map))
 		return ;
-	else if ((map[i - 1][j] == '1' || map[i - 1][j] == 'E')
-		&& !find_collectible(map))
+	else if ((ctx->map[i - 1][j] == '1' || ctx->map[i - 1][j] == 'E')
+		&& !find_collectible(ctx->map))
 		return ;
-	else if (map[i - 1][j] == 'C')
-		map[i - 1][j] = '0';
-	else if (map[i - 1][j] == 'M')
-		exit(0);
-	else if (map[i - 1][j] == 'E' && find_collectible(map))
-		exit(0);
-	temp = map[i][j];
-	map[i][j] = map[i - 1][j];
-	map[i - 1][j] = temp;
+	else if (ctx->map[i - 1][j] == 'C')
+		ctx->map[i - 1][j] = '0';
+	else if (ctx->map[i - 1][j] == 'M')
+	{
+		if(ctx->map)
+			free_mlx(ctx);
+	}
+	else if (ctx->map[i - 1][j] == 'E' && find_collectible(ctx->map))
+	{
+		if(ctx->map)
+			free_mlx(ctx);
+	}
+	temp = ctx->map[i][j];
+	ctx->map[i][j] = ctx->map[i - 1][j];
+	ctx->map[i - 1][j] = temp;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_settings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:08:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/27 22:11:59 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:28:49 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,7 @@ void	draw_move(t_drawctx *ctx)
 	str = ft_itoa(ctx->move_count);
 	mlx_string_put(ctx->mlx, ctx->win, 10, 10, 0x0000FF, str);
 	free(str);
-}
-
-void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
+	str = NULL;
 }
 
 int	count_lines(const char *file_name)

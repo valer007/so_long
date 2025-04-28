@@ -1,14 +1,14 @@
 NAME	= so_long
 
 CC		= cc
-INCLUDE = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR) -fsanitize=address
-CFLAGS	= -Wall -Wextra -Werror $(INCLUDE)
+INCLUDE = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
+CFLAGS	= -g -Wall -Wextra -Werror $(INCLUDE)
 
 SRC_DIR	= src
 OBJ_DIR	= obj
 
 SRC_FILES = main.c check_maps.c image_settings.c helper_settings.c map_settings.c directions.c \
-			directions1.c pars.c move_charachters.c
+			directions1.c pars.c move_charachters.c clean.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 

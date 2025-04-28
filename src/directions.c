@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 23:35:49 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/28 20:10:54 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,24 @@ static void	move_player(int keycode, t_drawctx *ctx, t_ij ij)
 {
 	if (keycode == ESC)
 		close_window(ctx);
-	if (keycode == D)
+	if (keycode == D && ctx->map)
 	{
-		right(ctx->map, ij.i, ij.j);
+		right(ctx, ij.i, ij.j);
 		draw_elements(ctx, 1);
 	}
-	if (keycode == A)
+	if (keycode == A && ctx->map)
 	{
-		left(ctx->map, ij.i, ij.j);
+		left(ctx, ij.i, ij.j);
 		draw_elements(ctx, 2);
 	}
-	if (keycode == S)
+	if (keycode == S && ctx->map)
 	{
-		down(ctx->map, ij.i, ij.j);
+		down(ctx, ij.i, ij.j);
 		draw_elements(ctx, 3);
 	}
-	if (keycode == W)
+	if (keycode == W && ctx->map)
 	{
-		up(ctx->map, ij.i, ij.j);
+		up(ctx, ij.i, ij.j);
 		draw_elements(ctx, 4);
 	}
 	ctx->move_count += 1;
