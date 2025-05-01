@@ -6,7 +6,7 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 18:14:19 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 12:46:07 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,38 @@ typedef struct s_ij
 	int		j;
 }			t_ij;
 
-void	set_enemy_position(t_drawctx *ctx);
-int		close_window(t_drawctx *test);
-int		check_map(int fd);
-void	draw_move(t_drawctx *ctx);
-int		check_arguments(char **map);
-int		count_lines(const char *file_name);
-int		start_game(char **argv, char **map);
-char	**create_map(const char *file_name);
-char	**copy_map(char **map);
-char	**load_and_validate_map(const char *file_name);
-int		validate_and_start(const char *file_name, char **argv);
-int		flood_fill_for_e(char **map);
-int		flood_fill_for_c(char **map);
-int		move_characters(void *param);
-int		has_enemy(char **map);
-t_ij	position(char **map);
-t_ij	position_e(char **map);
-void	load_images(t_drawctx *ctx);
-void	draw_top_bottom(t_drawctx *ctx, int map_lines);
-void	draw_left_right(t_drawctx *ctx);
-void	draw_inner_walls(t_drawctx *ctx, int map_lines);
-void	draw_elements(t_drawctx *ctx, int num);
-void	draw_img(t_drawctx *ctx, void *win, void *texture, t_ij ij);
-int		handle_key(int keycode, void *param);
-void	print_map(char **map);
-int		find_collectible(char **map);
-void	right(t_drawctx *ctx, int i, int j);
-void	left(t_drawctx *ctx, int i, int j);
-void	down(t_drawctx *ctx, int i, int j);
-void	up(t_drawctx *ctx, int i, int j);
-void	free_map(char **map);
-void    free_mlx(t_drawctx *ctx);
+void		print_move(int move);
+void		set_enemy_position(t_drawctx *ctx, int num);
+void		initialize(t_drawctx *ctx);
+int			close_window(t_drawctx *test);
+int			check_map(int fd);
+void		draw_move(t_drawctx *ctx);
+int			check_arguments(char **map);
+int			count_lines(const char *file_name);
+int			start_game(char **argv, char **map);
+char		**create_map(const char *file_name);
+char		**copy_map(char **map);
+char		**load_and_validate_map(const char *file_name);
+int			validate_and_start(const char *file_name, char **argv);
+int			flood_fill_for_e(char **map);
+int			flood_fill_for_c(char **map);
+int			move_characters(void *param);
+int			has_enemy(char **map);
+t_ij		position(char **map);
+void		free_mlx(t_drawctx *ctx);
+void		load_images(t_drawctx *ctx);
+void		draw_top_bottom(t_drawctx *ctx, int map_lines);
+void		draw_left_right(t_drawctx *ctx);
+void		draw_inner_walls(t_drawctx *ctx, int map_lines);
+void		draw_elements(t_drawctx *ctx, int num);
+void		draw_img(t_drawctx *ctx, void *win, void *texture, t_ij ij);
+int			handle_key(int keycode, void *param);
+int			find_collectible(char **map);
+void		right(t_drawctx *ctx, int i, int j);
+void		left(t_drawctx *ctx, int i, int j);
+void		down(t_drawctx *ctx, int i, int j);
+void		up(t_drawctx *ctx, int i, int j);
+t_ij		position_e(char **map);
+void		free_map(char **map);
 
 #endif

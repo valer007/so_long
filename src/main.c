@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 18:36:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 20:14:57 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:28:37 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	**load_and_validate_map(const char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1 || check_map(fd) == 0)
 	{
-		write(1, "Invalid map", 11);
+		get_next_line(-1);
+		write(1, "Invalid map", 12);
 		if (fd != -1)
 			close(fd);
 		return (NULL);
@@ -49,7 +50,7 @@ char	**load_and_validate_map(const char *file_name)
 	close(fd);
 	map = create_map(file_name);
 	if (!map)
-		write(1, "Invalid map", 11);
+		write(1, "Invalid map", 12);
 	return (map);
 }
 
@@ -64,7 +65,7 @@ int	validate_and_start(const char *file_name, char **argv)
 	copy = copy_map(map);
 	if (!copy || check_arguments(map) == 0 || !flood_fill_for_e(copy))
 	{
-		write(1, "Invalid map", 11);
+		write(1, "Invalid map", 12);
 		free_map(copy);
 		free_map(map);
 		return (0);
@@ -73,7 +74,7 @@ int	validate_and_start(const char *file_name, char **argv)
 	copy = copy_map(map);
 	if (!flood_fill_for_c(copy))
 	{
-		write(1, "Invalid map", 11);
+		write(1, "Invalid map", 12);
 		free_map(copy);
 		free_map(map);
 		return (0);
@@ -82,10 +83,32 @@ int	validate_and_start(const char *file_name, char **argv)
 	return (start_game(argv, map), 1);
 }
 
+int	is_ber_file(char *filename)
+{
+	int	len;
+
+	if (!filename)
+		return (0);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	if (filename[len - 4] == '.'
+		&& filename[len - 3] == 'b'
+		&& filename[len - 2] == 'e'
+		&& filename[len - 1] == 'r')
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
 		return (0);
+	if (!is_ber_file(argv[1]))
+	{
+		write(1, "Error", 5);
+		return (0);
+	}
 	if (!validate_and_start(argv[1], argv))
 		return (0);
 	return (1);

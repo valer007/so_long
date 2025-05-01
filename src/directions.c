@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 20:09:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 20:10:54 by vmakarya         ###   ########.fr       */
+/*   Created: 2025/04/29 20:42:05 by vmakarya          #+#    #+#             */
+/*   Updated: 2025/04/30 12:46:31 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	move_player(int keycode, t_drawctx *ctx, t_ij ij)
 		up(ctx, ij.i, ij.j);
 		draw_elements(ctx, 4);
 	}
-	ctx->move_count += 1;
+	print_move(ctx->move_count);
 }
 
 int	handle_key(int keycode, void *param)

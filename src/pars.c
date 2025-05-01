@@ -3,25 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   pars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:47:46 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/26 18:40:00 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:57:39 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_map(char **map)
+int	has_enemy(char **map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
 	{
-		printf("%s\n", map[i]);
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'M')
+				return (1);
+			j++;
+		}
 		i++;
 	}
+	return (0);
 }
 
 static int	count_line(char **map)
@@ -34,7 +42,7 @@ static int	count_line(char **map)
 	return (i);
 }
 
-static void	dfs(char **map, int i, int j, int flag)
+static void	dfs(char **map, int i, int j)
 {
 	int	n;
 	int	m;
@@ -43,22 +51,13 @@ static void	dfs(char **map, int i, int j, int flag)
 	n = count_line(map);
 	if (i < 0 || j < 0 || i >= n || j >= m)
 		return ;
-	if (flag == 1)
-	{
-		if (map[i][j] == '1' || map[i][j] == 'V' || map[i][j] == 'C')
-			return ;
-		map[i][j] = 'V';
-	}
-	else
-	{
-		if (map[i][j] == '1' || map[i][j] == 'V')
-			return ;
-		map[i][j] = 'V';
-	}
-	dfs(map, i + 1, j, flag);
-	dfs(map, i - 1, j, flag);
-	dfs(map, i, j + 1, flag);
-	dfs(map, i, j - 1, flag);
+	if (map[i][j] == '1' || map[i][j] == 'V' || map[i][j] == 'M')
+		return ;
+	map[i][j] = 'V';
+	dfs(map, i + 1, j);
+	dfs(map, i - 1, j);
+	dfs(map, i, j + 1);
+	dfs(map, i, j - 1);
 }
 
 int	flood_fill_for_e(char **map)
@@ -66,13 +65,11 @@ int	flood_fill_for_e(char **map)
 	int	i;
 	int	j;
 	int	success;
-	int	flag;
 
-	flag = 1;
 	success = 1;
 	i = position(map).i;
 	j = position(map).j;
-	dfs(map, i, j, flag);
+	dfs(map, i, j);
 	i = 1;
 	while (map[i])
 	{
@@ -93,14 +90,12 @@ int	flood_fill_for_c(char **map)
 	int	i;
 	int	j;
 	int	success;
-	int	flag;
 
-	flag = 0;
 	success = 1;
 	i = position(map).i;
 	j = position(map).j;
 	map[position_e(map).i][position_e(map).j] = '1';
-	dfs(map, i, j, flag);
+	dfs(map, i, j);
 	i = 1;
 	while (map[i])
 	{

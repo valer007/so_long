@@ -6,7 +6,7 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:23 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 21:10:20 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 12:38:01 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	right(t_drawctx *ctx, int i, int j)
 		if (ctx)
 			free_mlx(ctx);
 	}
+	ctx->move_count++;
 	temp = ctx->map[i][j];
 	ctx->map[i][j] = ctx->map[i][j + 1];
 	ctx->map[i][j + 1] = temp;
@@ -78,6 +79,7 @@ void	left(t_drawctx *ctx, int i, int j)
 		if (ctx->map)
 			free_mlx(ctx);
 	}
+	ctx->move_count++;
 	temp = ctx->map[i][j];
 	ctx->map[i][j] = ctx->map[i][j - 1];
 	ctx->map[i][j - 1] = temp;
@@ -96,14 +98,15 @@ void	down(t_drawctx *ctx, int i, int j)
 		ctx->map[i + 1][j] = '0';
 	else if (ctx->map[i + 1][j] == 'M')
 	{
-		if(ctx->map)
+		if (ctx->map)
 			free_mlx(ctx);
 	}
 	else if (ctx->map[i + 1][j] == 'E' && find_collectible(ctx->map))
 	{
-		if(ctx->map)
+		if (ctx->map)
 			free_mlx(ctx);
 	}
+	ctx->move_count++;
 	temp = ctx->map[i][j];
 	ctx->map[i][j] = ctx->map[i + 1][j];
 	ctx->map[i + 1][j] = temp;
@@ -122,14 +125,15 @@ void	up(t_drawctx *ctx, int i, int j)
 		ctx->map[i - 1][j] = '0';
 	else if (ctx->map[i - 1][j] == 'M')
 	{
-		if(ctx->map)
+		if (ctx->map)
 			free_mlx(ctx);
 	}
 	else if (ctx->map[i - 1][j] == 'E' && find_collectible(ctx->map))
 	{
-		if(ctx->map)
+		if (ctx->map)
 			free_mlx(ctx);
 	}
+	ctx->move_count++;
 	temp = ctx->map[i][j];
 	ctx->map[i][j] = ctx->map[i - 1][j];
 	ctx->map[i - 1][j] = temp;

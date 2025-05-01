@@ -6,33 +6,38 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 20:24:14 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:16:30 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	has_enemy(char **map)
+void print_move(int move)
 {
-	int	i;
-	int	j;
+	char *str;
 
-	i = 0;
-	while (map[i])
+	str = ft_itoa(move);
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	free(str);
+}
+
+static int	is_invalid_enemy_case(t_drawctx *ctx, int i, int j, int num)
+{
+	if (ctx->map[i][j] == 'M' && num == 1)
 	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'M')
-				return (1);
-			j++;
-		}
-		i++;
+		if ((ctx->map[i][j - 1] == '1' && ctx->map[i][j + 1] == '1')
+			|| (ctx->map[i][j - 1] == 'C' && ctx->map[i][j + 1] == 'C')
+			|| (ctx->map[i][j - 1] == 'C' && ctx->map[i][j + 1] == '1')
+			|| (ctx->map[i][j - 1] == '1' && ctx->map[i][j + 1] == 'C')
+			|| (ctx->map[i][j - 1] == 'C' && ctx->map[i][j + 1] == 'E')
+			|| (ctx->map[i][j - 1] == 'E' && ctx->map[i][j + 1] == 'C'))
+			return (1);
 	}
 	return (0);
 }
 
-void	set_enemy_position(t_drawctx *ctx)
+void	set_enemy_position(t_drawctx *ctx, int num)
 {
 	int	i;
 	int	j;
@@ -45,9 +50,9 @@ void	set_enemy_position(t_drawctx *ctx)
 		{
 			if (ctx->map[i][j] == 'M')
 			{
-				if (ctx->map[i][j - 1] == '1' && ctx->map[i][j + 1] == '1')
+				if (is_invalid_enemy_case(ctx, i, j, num))
 				{
-					write(1, "invalide map", 11);
+					write(1, "invalide map", 12);
 					free_mlx(ctx);
 				}
 				ctx->i = i;
@@ -82,14 +87,18 @@ void	helper(t_drawctx *ctx, t_ij ij, int next_j)
 		swap(&ctx->map[ij.i][ij.j], &ctx->map[ij.i][next_j]);
 		ctx->j = next_j;
 		if (ctx->dir == 1)
-			draw_img(ctx, ctx->win, ctx->img.enemy_right,
-				(t_ij){ij.i, next_j});
+			draw_img(ctx, ctx->win, ctx->img.enemy_right, (t_ij){ij.i, next_j});
 		else
-			draw_img(ctx, ctx->win, ctx->img.enemy_left,
-				(t_ij){ij.i, next_j});
+			draw_img(ctx, ctx->win, ctx->img.enemy_left, (t_ij){ij.i, next_j});
 	}
 	else
+	{
 		ctx->dir *= -1;
+		if (ctx->dir == 1)
+			draw_img(ctx, ctx->win, ctx->img.enemy_right, (t_ij){ij.i, next_j + 1});
+		else
+			draw_img(ctx, ctx->win, ctx->img.enemy_left, (t_ij){ij.i, next_j - 1});
+	}
 }
 
 int	move_characters(void *param)

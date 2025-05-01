@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:37:48 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/13 18:09:57 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:51:52 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_list
 	struct s_list	*prev;
 }				t_list;
 
+char		*ft_strjoin_free(char *s1, char *s2);
+char		*foo(char *str);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstnew(int num);

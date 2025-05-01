@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 18:24:45 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 21:30:20 by vmakarya         ###   ########.fr       */
+/*   Created: 2025/04/29 20:41:59 by vmakarya          #+#    #+#             */
+/*   Updated: 2025/05/01 13:29:20 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	free_map(char **map)
 	free(map);
 }
 
-void	free_mlx(t_drawctx *ctx)
+static void	free_images(t_drawctx *ctx)
 {
-	if (!ctx)
-		return ;
 	if (ctx->img.enemy_right)
 		mlx_destroy_image(ctx->mlx, ctx->img.enemy_right);
 	if (ctx->img.grass)
@@ -51,17 +49,22 @@ void	free_mlx(t_drawctx *ctx)
 		mlx_destroy_image(ctx->mlx, ctx->img.img);
 	if (ctx->img.girl)
 		mlx_destroy_image(ctx->mlx, ctx->img.girl);
+}
+
+void	free_mlx(t_drawctx *ctx)
+{
+	if (!ctx)
+		return ;
+	free_images(ctx);
 	if (ctx->win)
 		mlx_destroy_window(ctx->mlx, ctx->win);
-	if (ctx->mlx)
-	{
-		mlx_destroy_display(ctx->mlx);
-		free(ctx->mlx);
-	}
+	// if (ctx->mlx)
+	// {
+	// 	mlx_destroy_display(ctx->mlx);
+	// 	free(ctx->mlx);
+	// }
 	if (ctx->map)
 		free_map(ctx->map);
 	free(ctx);
 	exit(0);
 }
-
-

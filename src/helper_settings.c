@@ -6,7 +6,7 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/28 17:46:24 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:53:08 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_elements(t_drawctx *ctx, int num)
 				draw_img(ctx, ctx->win, ctx->img.home, ij);
 			if (ctx->map[ij.i][ij.j] == 'M')
 			{
-				set_enemy_position(ctx);
+				set_enemy_position(ctx, 0);
 				mlx_loop_hook(ctx->mlx, move_characters, ctx);
 			}
 		}
@@ -79,6 +79,6 @@ void	draw_elements(t_drawctx *ctx, int num)
 
 void	draw_img(t_drawctx *ctx, void *win, void *texture, t_ij ij)
 {
-	mlx_put_image_to_window(ctx->mlx, win, texture, ij.j * ctx->img.img_width, ij.i
-		* ctx->img.img_height);
+	mlx_put_image_to_window(ctx->mlx, win, texture, ij.j * ctx->img.img_width,
+		ij.i * ctx->img.img_height);
 }
