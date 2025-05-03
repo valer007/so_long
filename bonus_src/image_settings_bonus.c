@@ -6,11 +6,11 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 12:49:40 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:45:46 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:04:56 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	close_window(t_drawctx *test)
 {
@@ -29,6 +29,7 @@ int	start_game(char **argv, char **map)
 	test->dir = 1;
 	initialize(test);
 	test->map = map;
+	set_enemy_position(test, 1);
 	map_lines = count_lines(argv[1]) - 1;
 	test->mlx = mlx_init();
 	test->win = mlx_new_window(test->mlx, ft_strlen(map[0]) * WIDTH, (map_lines
@@ -66,6 +67,11 @@ void	load_images(t_drawctx *ctx)
 			&ctx->img.img_width, &ctx->img.img_height);
 	ctx->img.home = mlx_xpm_file_to_image(ctx->mlx, "assets/home.xpm",
 			&ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.enemy_left = mlx_xpm_file_to_image(ctx->mlx,
+			"assets/enemy_left.xpm", &ctx->img.img_width, &ctx->img.img_height);
+	ctx->img.enemy_right = mlx_xpm_file_to_image(ctx->mlx,
+			"assets/enemy_right.xpm", &ctx->img.img_width,
+			&ctx->img.img_height);
 }
 
 void	draw_top_bottom(t_drawctx *ctx, int map_lines)

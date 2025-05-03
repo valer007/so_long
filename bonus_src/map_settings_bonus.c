@@ -6,20 +6,20 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:08:08 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:50:15 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:05:13 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-void	print_move(int move)
+void	draw_move(t_drawctx *ctx)
 {
 	char	*str;
 
-	str = ft_itoa(move);
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
+	str = ft_itoa(ctx->move_count);
+	mlx_string_put(ctx->mlx, ctx->win, 10, 10, 0x0000FF, str);
 	free(str);
+	str = NULL;
 }
 
 int	count_lines(const char *file_name)

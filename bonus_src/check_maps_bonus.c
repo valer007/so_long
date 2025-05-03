@@ -6,11 +6,11 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:41:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:35:05 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:04:21 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static int	validate_char(char ch, t_character *chr)
 {
@@ -20,9 +20,11 @@ static int	validate_char(char ch, t_character *chr)
 		chr->c++;
 	else if (ch == 'P')
 		chr->p++;
+	else if (ch == 'M')
+		chr->m++;
 	else if (ch != '0' && ch != '1' && ch != '\n')
 		return (0);
-	if (chr->e > 1 || chr->p > 1)
+	if (chr->e > 1 || chr->p > 1 || chr->m > 1)
 		return (0);
 	return (1);
 }
@@ -36,6 +38,7 @@ int	check_arguments(char **map)
 	ch.e = 0;
 	ch.c = 0;
 	ch.p = 0;
+	ch.m = 0;
 	i = 1;
 	while (map[i])
 	{

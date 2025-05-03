@@ -6,11 +6,11 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:23 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:37:56 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:04:44 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	find_collectible(char **map)
 {
@@ -42,6 +42,11 @@ void	right(t_drawctx *ctx, int i, int j)
 		return ;
 	else if (ctx->map[i][j + 1] == 'C')
 		ctx->map[i][j + 1] = '0';
+	else if (ctx->map[i][j + 1] == 'M')
+	{
+		if (ctx)
+			free_mlx(ctx);
+	}
 	else if (ctx->map[i][j + 1] == 'E' && find_collectible(ctx->map))
 	{
 		if (ctx)
@@ -64,6 +69,11 @@ void	left(t_drawctx *ctx, int i, int j)
 		return ;
 	else if (ctx->map[i][j - 1] == 'C')
 		ctx->map[i][j - 1] = '0';
+	else if (ctx->map[i][j - 1] == 'M')
+	{
+		if (ctx->map)
+			free_mlx(ctx);
+	}
 	else if (ctx->map[i][j - 1] == 'E' && find_collectible(ctx->map))
 	{
 		if (ctx->map)
@@ -86,6 +96,11 @@ void	down(t_drawctx *ctx, int i, int j)
 		return ;
 	else if (ctx->map[i + 1][j] == 'C')
 		ctx->map[i + 1][j] = '0';
+	else if (ctx->map[i + 1][j] == 'M')
+	{
+		if (ctx->map)
+			free_mlx(ctx);
+	}
 	else if (ctx->map[i + 1][j] == 'E' && find_collectible(ctx->map))
 	{
 		if (ctx->map)
@@ -108,6 +123,11 @@ void	up(t_drawctx *ctx, int i, int j)
 		return ;
 	else if (ctx->map[i - 1][j] == 'C')
 		ctx->map[i - 1][j] = '0';
+	else if (ctx->map[i - 1][j] == 'M')
+	{
+		if (ctx->map)
+			free_mlx(ctx);
+	}
 	else if (ctx->map[i - 1][j] == 'E' && find_collectible(ctx->map))
 	{
 		if (ctx->map)

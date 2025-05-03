@@ -6,14 +6,16 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:55:28 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:40:21 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:05:01 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	initialize(t_drawctx *ctx)
 {
+	ctx->img.enemy_left = NULL;
+	ctx->img.enemy_right = NULL;
 	ctx->img.girl = NULL;
 	ctx->img.grass = NULL;
 	ctx->img.home = NULL;

@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars.c                                             :+:      :+:    :+:   */
+/*   pars_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:47:46 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:36:54 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:14:45 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+int	has_enemy(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'M')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 static int	count_line(char **map)
 {
@@ -31,7 +51,7 @@ static void	dfs(char **map, int i, int j)
 	n = count_line(map);
 	if (i < 0 || j < 0 || i >= n || j >= m)
 		return ;
-	if (map[i][j] == '1' || map[i][j] == 'V')
+	if (map[i][j] == '1' || map[i][j] == 'V' || map[i][j] == 'M')
 		return ;
 	map[i][j] = 'V';
 	dfs(map, i + 1, j);

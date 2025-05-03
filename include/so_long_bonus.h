@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 18:36:51 by vmakarya          #+#    #+#             */
+/*   Updated: 2025/05/03 13:21:50 by vmakarya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -6,7 +18,6 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
-
 
 // for linux
 // # define A 97
@@ -24,6 +35,7 @@
 
 # define HEIGHT 60
 # define WIDTH 57
+
 
 typedef struct s_character
 {
@@ -83,6 +95,7 @@ void		set_enemy_position(t_drawctx *ctx, int num);
 void		initialize(t_drawctx *ctx);
 int			close_window(t_drawctx *test);
 int			check_map(int fd);
+void		draw_move(t_drawctx *ctx);
 int			check_arguments(char **map);
 int			count_lines(const char *file_name);
 int			start_game(char **argv, char **map);

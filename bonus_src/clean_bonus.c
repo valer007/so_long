@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean.c                                            :+:      :+:    :+:   */
+/*   clean_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmakarya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:41:59 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/05/03 13:19:08 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/05/03 13:20:15 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+void	print_move(int move)
+{
+	char	*str;
+
+	str = ft_itoa(move);
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	free(str);
+}
 
 void	free_map(char **map)
 {
@@ -27,6 +37,8 @@ void	free_map(char **map)
 
 static void	free_images(t_drawctx *ctx)
 {
+	if (ctx->img.enemy_right)
+		mlx_destroy_image(ctx->mlx, ctx->img.enemy_right);
 	if (ctx->img.grass)
 		mlx_destroy_image(ctx->mlx, ctx->img.grass);
 	if (ctx->img.home)
@@ -35,6 +47,8 @@ static void	free_images(t_drawctx *ctx)
 		mlx_destroy_image(ctx->mlx, ctx->img.lights);
 	if (ctx->img.player_up)
 		mlx_destroy_image(ctx->mlx, ctx->img.player_up);
+	if (ctx->img.enemy_left)
+		mlx_destroy_image(ctx->mlx, ctx->img.enemy_left);
 	if (ctx->img.player_down)
 		mlx_destroy_image(ctx->mlx, ctx->img.player_down);
 	if (ctx->img.player_right)

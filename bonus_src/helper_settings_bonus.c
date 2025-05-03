@@ -6,11 +6,11 @@
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:15:35 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:51:17 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:04:51 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	draw_inner_walls(t_drawctx *ctx, int map_lines)
 {
@@ -66,9 +66,15 @@ void	draw_elements(t_drawctx *ctx, int num)
 				draw_img(ctx, ctx->win, ctx->img.girl, ij);
 			if (ctx->map[ij.i][ij.j] == 'E')
 				draw_img(ctx, ctx->win, ctx->img.home, ij);
+			if (ctx->map[ij.i][ij.j] == 'M')
+			{
+				set_enemy_position(ctx, 0);
+				mlx_loop_hook(ctx->mlx, move_characters, ctx);
+			}
 		}
 		ij.i++;
 	}
+	draw_move(ctx);
 }
 
 void	draw_img(t_drawctx *ctx, void *win, void *texture, t_ij ij)

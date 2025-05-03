@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_charachters.c                                 :+:      :+:    :+:   */
+/*   move_charachters_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmakarya <vmakarya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 20:09:52 by vmakarya          #+#    #+#             */
-/*   Updated: 2025/04/30 13:16:30 by vmakarya         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:14:22 by vmakarya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void print_move(int move)
-{
-	char *str;
-
-	str = ft_itoa(move);
-	write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
-	free(str);
-}
+#include "so_long_bonus.h"
 
 static int	is_invalid_enemy_case(t_drawctx *ctx, int i, int j, int num)
 {
@@ -95,9 +85,11 @@ void	helper(t_drawctx *ctx, t_ij ij, int next_j)
 	{
 		ctx->dir *= -1;
 		if (ctx->dir == 1)
-			draw_img(ctx, ctx->win, ctx->img.enemy_right, (t_ij){ij.i, next_j + 1});
+			draw_img(ctx, ctx->win, ctx->img.enemy_right,
+				(t_ij){ij.i, next_j + 1});
 		else
-			draw_img(ctx, ctx->win, ctx->img.enemy_left, (t_ij){ij.i, next_j - 1});
+			draw_img(ctx, ctx->win, ctx->img.enemy_left,
+				(t_ij){ij.i, next_j - 1});
 	}
 }
 
